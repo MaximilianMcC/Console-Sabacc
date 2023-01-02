@@ -15,7 +15,7 @@ To start, the dealer sets up two different piles. The draw pile (face down), and
 The aim of Sabacc is to get your cards closest to 0. There are positive cards, and negative cards. Your total score is the sum of the cards.
 
 Every round players are given the chance to do one of three moves:
-- **Draw** - Take a card from the top of the draw pile and add it to your hand.
+- **Draw** - Take a card from the top of the draw pile and add it to your hand. And optionally discard one of your cards to the discard pile
 - **Swap** - Swap a card from your hand with the top card in the discard pile
 - **Stand** - Do nothing
 
