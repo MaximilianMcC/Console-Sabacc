@@ -12,22 +12,4 @@ class Utils
     }
 
 
-    // Get a random card
-    public static Card getRandomCard()
-    {
-        Random random = new Random();
-        char type;
-        if (random.NextSingle())
-
-
-        //TODO: Check for if the card is already in the deck or something
-        Card card = new Card()
-        {
-            type = type,
-            value = value
-        };
-
-        return card;
-    }
-
 }
