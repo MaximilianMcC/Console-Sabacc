@@ -1,17 +1,25 @@
 class Card
 {
-    public int value { get; set; }
     public char type { get; set; }
+    public int value { get; set; }
+
+    // Get the cards display name
+    public string displayName()
+    {
+        // Check for if it's 0
+        if (type == '0') return "0";
+        return type + value.ToString();
+    }
 }
 
 
 /*
-    value = 3;
     type = '+';
+    value = 3;
 
-    value = 7;
     type = '-';
+    value = 7;
 
-    value = 0;
     type = '0';
+    value = 0;
 */
