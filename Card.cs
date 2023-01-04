@@ -1,5 +1,6 @@
 class Card
 {
+    //TODO: Make type an enum instead of char
     public char type { get; set; }
     public int value { get; set; }
 
