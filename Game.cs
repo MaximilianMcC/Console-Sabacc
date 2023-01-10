@@ -1,5 +1,7 @@
-class Game
+public class Game
 {
+
+    // Variables
     int round = 1;
     List<Player> players = new List<Player>();
     List<Card> deck = new List<Card>();
@@ -14,15 +16,15 @@ class Game
 
 
         // Generate all of the cards
-        deck.Add(new Card() { type = '0', value = 0 });
-        deck.Add(new Card() { type = '0', value = 0 });
+        deck.Add(new Card() { type = CardType.ZERO, value = 0 });
+        deck.Add(new Card() { type = CardType.ZERO, value = 0 });
 
         // Add all of the other cards
         //? 60 cards + 2 sylops = 62 total cards
         for (int i = 0; i < 6; i++)
         {
-            char type = '+';
-            if (i > 3) type = '-';
+            CardType type = CardType.POSITIVE;
+            if (i > 3) type = CardType.NEGATIVE;
 
             for (int j = 1; j < 11; j++)
             {
@@ -73,8 +75,8 @@ class Game
 
             // Give the player two random starting cards
             currentPlayer.hand = new List<Card>();
-            currentPlayer.hand = PickUp(currentPlayer.hand);
-            currentPlayer.hand = PickUp(currentPlayer.hand);
+            drawPile = currentPlayer.PickUp(drawPile);
+            drawPile = currentPlayer.PickUp(drawPile);
 
             // Add the player to the list
             players.Add(currentPlayer);
@@ -88,41 +90,62 @@ class Game
     public void Round()
     {
         Utils.Header("round " + round);
-        round++;
+
+        // Check for what round it is
+        if (round != 3) round++;
+        else {
+            Console.WriteLine("end of gmae...");
+        }
 
 
         // Loop through all of the players and let them do their turn
         foreach (Player player in players)
         {
-            // Give some text and stuff
-            Console.WriteLine($"----- {player.name}'s turn -----");
-            Console.WriteLine("You have got three options:");
+            //TODO: Show the players cards
 
-            //TODO: Make fancy arrow menu
-            //TODO: Make arrow menu a legit package nugget or something idk github repo
-            Console.WriteLine("| 1 | Draw  | Get a new card from the deck                  |");
-            Console.WriteLine("| 2 | Swap  | Swap a card with the card on the discard pile |");
-            Console.WriteLine("| 3 | Stand | Do nothing                                    |");
 
-            // Get input
-            ConsoleKeyInfo selection = Console.ReadKey(true);
-            if (selection.Key == ConsoleKey.D1)
+            // Make an arrow menu with all of the moves availble
+            ArrowMenu menu = new ArrowMenu()
+            {
+                title = "Select an option from below",
+                menuItems = new string[]
+                {
+                    "Draw  | Pick up a new card from the draw pile.",
+                    "Swap  | Swap a card in your hand with the top card on the discard pile.",
+                    "Stand | Do nothing."
+                },
+                padding = 5,
+                decorationCharacters = 4
+            };
+            
+
+            // Get their move
+            int move = menu.VerticalMenu();
+            if (move == 0)
             {
                 // Draw
-                player.hand = PickUp(player.hand);
-
+                Console.WriteLine("Draw");
             }
-            else if (selection.Key == ConsoleKey.D2)
+            else if (move == 1)
             {
                 // Swap
-                
+                Console.WriteLine("Swap");
             }
-            else if (selection.Key == ConsoleKey.D3)
+            else if (move == 2)
             {
                 // Stand
+                Console.WriteLine("Stand");
             }
+            
 
         }
+
+
+
+        // Roll the spike dice
+        Random random = new Random();
+        
+
     }
 
     public void End()
@@ -131,22 +154,4 @@ class Game
 
         //TODO: Reset variables at top of file
     }
-
-
-
-
-
-
-
-
-
-    //TODO: Put in Player class
-    List<Card> PickUp(List<Card> hand)
-    {
-        hand.Add(deck[1]);
-        drawPile.RemoveAt(1);
-
-        return hand;
-    }
-
 }
