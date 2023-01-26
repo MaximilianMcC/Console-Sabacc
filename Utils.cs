@@ -12,4 +12,10 @@ class Utils
     }
 
 
+    public static void DebugMessage(string message)
+    {
+        Console.ForegroundColor = ConsoleColor.Green;
+        Console.WriteLine(message);
+        Console.ResetColor();
+    }
 }
