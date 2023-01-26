@@ -92,7 +92,7 @@ public class Game
         Utils.Header("round " + round);
 
         // Check for what round it is
-        if (round != 3) round++;
+        if (round != 4) round++;
         else {
             Console.WriteLine("end of gmae...");
         }
@@ -101,7 +101,15 @@ public class Game
         // Loop through all of the players and let them do their turn
         foreach (Player player in players)
         {
-            //TODO: Show the players cards
+            List<Card> hand = player.hand;
+
+            
+            // Show all of the players cards
+            Console.WriteLine("Your current hand:");
+            foreach (Card card in hand)
+            {
+                Console.Write(card.displayName() + "\t");
+            }
 
 
             // Make an arrow menu with all of the moves availble
@@ -144,8 +152,24 @@ public class Game
 
         // Roll the spike dice
         Random random = new Random();
+        int dice1 = random.Next(1, 6);
+        int dice2 = random.Next(1, 6);
+
+        Console.WriteLine("First spike dice: " + dice1);
+        Console.WriteLine("Second spike dice: " + dice2);
+
+        // Check for if there is a shift
+        if (dice1 == dice2)
+        {
+            // Shift
+            Console.WriteLine("Shift");
+        }
+        else Console.WriteLine("No shift");
+
         
 
+        // Go to the next round
+        Round();
     }
 
     public void End()

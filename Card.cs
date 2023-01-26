@@ -7,7 +7,7 @@ class Card
     // Get the cards display name
     public string displayName()
     {
-        return (char) type + value.ToString();
+        return (char)type + value.ToString();
     }
 }
 
