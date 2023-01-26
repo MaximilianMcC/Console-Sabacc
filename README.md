@@ -2,6 +2,13 @@
 Sabacc but in the console because im too lazy to make gui thing
 
 
+## **TODO**
+- [ ] Basic gameplay loop
+- [ ] Playable game with irl people
+- [ ] Playable game with AI/CPU
+- [ ] Fancy ASCII art
+
+
 ## *What is Sabacc🤓*
 [Sabacc](https://starwars.fandom.com/wiki/Sabacc) is a short and simple card game that comes from Star Wars. Unlike many games in Star Wars, this game can actually be played and there are a few different versions of it. The version that I'm recreating is called [Corellian Spike](https://starwars.fandom.com/wiki/Corellian_Spike).
 
