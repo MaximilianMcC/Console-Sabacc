@@ -4,6 +4,7 @@ class Game
 	Deck deck = new Deck();
 	Deck drawPile = new Deck();
 	Deck discardPile = new Deck();
+	int round = 1;
 
 	// Create a new game, and setup everything
 	public void NewGame()
@@ -80,5 +81,111 @@ class Game
 			// Add the player to the list of players
 			players.Add(player);
 		}
+
+
+		// Begin the first round
+		Round();
 	}
+
+
+
+	// Game round
+	void Round()
+	{
+		ArrowMenu menu = new ArrowMenu()
+		{
+			decorationCharacters = 4,
+			padding = 5
+		};
+
+
+		// Loop through all of the different players
+		foreach (Player player in players)
+		{
+			// Give a title showing the round, and player
+			Console.Clear();
+			Console.WriteLine($"Round {round}/3 -- {player.name}");
+
+
+			// Print the players current cards
+			Console.WriteLine("Your cards: ");
+			foreach (Card card in player.hand.cards)
+			{
+				Console.Write(card.GetDisplayName() + "\t");
+			}
+			
+			// Print the top card in the discard pile
+			Console.WriteLine("\n Top card in the discard pile: " + discardPile.cards.First().GetDisplayName());
+
+
+			// Show all of the availble moves
+			menu.title = "Select a move from below";
+			menu.menuItems = new[]
+			{
+				"Gain    | Pick up a card from the draw pile.",
+				"Swap    | Swap a card in your hand for the top one in the discard pile.",
+				"Stand   | Do nothing."
+			};
+			int move = menu.VerticalMenu();
+
+			// Get the move, then do the move
+			if (move == 0)
+			{
+				
+				// Pick up a card
+				player.hand.AddCard(drawPile.PickUpCard());
+
+			}
+			else if (move == 1)
+			{
+				// Show the cards that can be swapped
+				menu.title = "Select a card from below to swap with";
+				menu.menuItems = player.hand.cards.Select(card => card.GetDisplayName()).ToArray();
+				Card cardToSwap = player.hand.GetCardFromIndex(menu.VerticalMenu());
+
+				// Move the top card from the discard pile to the players hand
+				player.hand.AddCard(discardPile.cards.First());
+
+				// Move the card from the players hand to the discard pile, then remove it from the players hand
+				discardPile.AddCard(cardToSwap);
+				player.hand.RemoveCard(cardToSwap);
+			}
+			//? There is nothing for the 3rd move, because it is do nothing.
+
+
+			// Print the players new current cards
+			Console.WriteLine("Your new cards: ");
+			foreach (Card card in player.hand.cards)
+			{
+				Console.Write(card.GetDisplayName() + "\t");
+			}
+			
+			// Print the top card in the discard pile
+			Console.WriteLine("\n New top card in the discard pile: " + discardPile.cards.First().GetDisplayName());
+
+
+			// Ask them to end turn
+			Console.WriteLine("Press any key to end your current turn");
+			Console.ReadKey();
+		}
+
+		
+		// Start the next round, or end the game
+		if (round == 3) EndGame();
+		else
+		{
+			round++;
+			Round();
+		}
+
+	}
+
+
+	// End of the game
+	void EndGame()
+	{
+		// Check for who wins
+	}
+
+
 }

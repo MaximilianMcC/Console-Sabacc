@@ -34,7 +34,19 @@ public class Deck
         cards.AddFirst(card);
     }
 
-    // Remove the top card from the deck
+    // Get a card from its index
+    public Card GetCardFromIndex(int index)
+    {
+        return cards.ElementAt(index);
+    }
+
+    // Remove a card at its index
+    public void RemoveCard(Card card)
+    {
+        cards.Remove(card);
+    }
+
+    // Remove the top card from the deck then return it
     public Card PickUpCard()
     {
         // Make a copy of the card, then delete the original
