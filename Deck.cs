@@ -22,6 +22,12 @@ public class Deck
 {
     public LinkedList<Card> cards { get; set; }
 
+    public Deck()
+    {
+        // Make a new empty list of cards when a deck is created
+        cards = new LinkedList<Card>();
+    }
+
     // Add a card to the deck
     public void AddCard(Card card)
     {
