@@ -88,7 +88,6 @@ class Game
 	}
 
 
-
 	// Game round
 	void Round()
 	{
@@ -153,6 +152,7 @@ class Game
 			//? There is nothing for the 3rd move, because it is do nothing.
 
 
+			//TODO: Don't repeat all this code
 			// Print the players new current cards
 			Console.WriteLine("Your new cards: ");
 			foreach (Card card in player.hand.cards)
@@ -168,6 +168,33 @@ class Game
 			Console.WriteLine("Press any key to end your current turn");
 			Console.ReadKey();
 		}
+
+
+
+		// At the end of the round throw the spike dice. If both values match all players get new cards
+		Random random = new Random();
+		if (random.Next(1, 6) == random.Next(1, 6))
+		{
+			// Sabacc Shift
+			Console.WriteLine("Sabacc shift! All players get a new hand equal to the count of their current cards");
+
+			// Loop through all players
+			foreach (Player player in players)
+			{
+				// Remove all of their cards and add them to the discard pile
+				int currentPlayersCardCount = player.hand.cards.Count;
+				for (int i = 0; i < currentPlayersCardCount; i++) discardPile.AddCard(player.hand.GetCardFromIndex(i));
+
+				// Give back new cards from the draw pile
+				for (int i = 0; i < currentPlayersCardCount; i++) player.hand.AddCard(drawPile.PickUpCard());
+			}
+		}
+		else Console.WriteLine("No shift....");
+
+
+
+		Console.WriteLine("Press any key to move onto the next round");
+		Console.ReadKey();
 
 		
 		// Start the next round, or end the game
@@ -186,6 +213,5 @@ class Game
 	{
 		// Check for who wins
 	}
-
 
 }
