@@ -20,17 +20,22 @@ public enum CardType
 
 public class Deck
 {
-    public Queue<Card> cards { get; set; }
+    public LinkedList<Card> cards { get; set; }
 
     // Add a card to the deck
     public void AddCard(Card card)
     {
-        cards.Enqueue(card);
+        cards.AddFirst(card);
     }
 
     // Remove the top card from the deck
     public Card PickUpCard()
     {
-        return cards.Dequeue();
+        // Make a copy of the card, then delete the original
+        Card cardToPickup = cards.First();
+        cards.RemoveFirst();
+
+        // Return the card copy
+        return cardToPickup;
     }
 }
