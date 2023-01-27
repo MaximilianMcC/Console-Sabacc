@@ -54,7 +54,31 @@ class Game
 
 		// Make the discard pile from the deck
 		discardPile.AddCard(drawPile.PickUpCard());
+
+
+
+
+
+
+		// Add all of the players
+		Console.WriteLine("How many players? (2 - 8)");
+		int playerCount = int.Parse(Console.ReadLine().Trim());
+
+		for (int i = 0; i < playerCount; i++)
+		{
+			Player player = new Player();
+
+			// Get the players name
+			Console.Write("Player " + (i + 1) + "'s name: ");
+			string playerName = Console.ReadLine().Trim();
+			player.name = playerName;
+
+			// Give them two starting cards from the draw pile
+			player.hand.AddCard(drawPile.PickUpCard());
+			player.hand.AddCard(drawPile.PickUpCard());
+
+			// Add the player to the list of players
+			players.Add(player);
+		}
 	}
-
-
 }

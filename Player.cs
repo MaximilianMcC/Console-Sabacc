@@ -1,5 +1,10 @@
 public class Player
 {
     public string name { get; set; }
-    public Queue<Card> hand;
+    public Deck hand { get; set; }
+
+    public Player()
+    {
+        hand = new Deck();
+    }
 }
