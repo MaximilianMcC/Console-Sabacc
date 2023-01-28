@@ -184,6 +184,7 @@ class Game
 				// Remove all of their cards and add them to the discard pile
 				int currentPlayersCardCount = player.hand.cards.Count;
 				for (int i = 0; i < currentPlayersCardCount; i++) discardPile.AddCard(player.hand.GetCardFromIndex(i));
+				player.hand.cards.Clear();
 
 				// Give back new cards from the draw pile
 				for (int i = 0; i < currentPlayersCardCount; i++) player.hand.AddCard(drawPile.PickUpCard());
