@@ -1,3 +1,11 @@
+public enum CardType
+{
+    POSITIVE = '+',
+    NEGATIVE = '-',
+    ZERO = ' '
+}
+
+
 public class Card
 {
     public CardType cardType { get; set; }
@@ -7,15 +15,57 @@ public class Card
     {
         return (char)cardType + value.ToString();
     }
+
+    public void DrawAsciiCard()
+    {
+        int startCursorTop = Console.CursorTop;
+        int startCursorLeft = Console.CursorLeft;
+        int cardWidth = 14;
+
+        // Draw the very top part of the card
+        Console.SetCursorPosition((startCursorLeft + cardWidth), Console.CursorTop);
+        Console.WriteLine(@"    ______    ");
+
+        // Draw the top line that states the card type
+        Console.SetCursorPosition((startCursorLeft + cardWidth), Console.CursorTop);
+        Console.Write(@"   /");
+        if (cardType == CardType.POSITIVE) Console.ForegroundColor = ConsoleColor.Green;
+        else if (cardType == CardType.NEGATIVE) Console.ForegroundColor = ConsoleColor.Red;
+        else if (cardType == CardType.ZERO) Console.ForegroundColor = ConsoleColor.Cyan;
+        Console.Write(@"======");
+        Console.ResetColor();
+        Console.WriteLine(@"\   ");
+
+        // Draw the rest of the top of the card
+        Console.SetCursorPosition((startCursorLeft + cardWidth), Console.CursorTop);
+        Console.WriteLine(@"  /        \  ");
+        Console.SetCursorPosition((startCursorLeft + cardWidth), Console.CursorTop);
+        Console.WriteLine(@" /          \ ");
+        Console.SetCursorPosition((startCursorLeft + cardWidth), Console.CursorTop);
+        Console.WriteLine(@"|            |");
+
+        // Draw the middle part of the card
+        Console.SetCursorPosition((startCursorLeft + cardWidth), Console.CursorTop);
+        Console.Write(@"|     " + (char)cardType);
+        if (value.ToString().Length == 1) Console.WriteLine(value + "     |");
+        else if (value.ToString().Length == 2) Console.WriteLine(value + "    |");
+
+        // Draw the bottom part of the card
+        Console.SetCursorPosition((startCursorLeft + cardWidth), Console.CursorTop);
+        Console.WriteLine(@"|            |");
+        Console.SetCursorPosition((startCursorLeft + cardWidth), Console.CursorTop);
+        Console.WriteLine(@" \          / ");
+        Console.SetCursorPosition((startCursorLeft + cardWidth), Console.CursorTop);
+        Console.WriteLine(@"  \        /  ");
+        Console.SetCursorPosition((startCursorLeft + cardWidth), Console.CursorTop);
+        Console.WriteLine(@"   \______/   ");
+
+        // Move the cursor over to the end of the card
+        Console.SetCursorPosition((startCursorLeft + cardWidth), startCursorTop);
+    }
 }
 
 
-public enum CardType
-{
-    POSITIVE = '+',
-    NEGATIVE = '-',
-    ZERO = ' '
-}
 
 
 public class Deck

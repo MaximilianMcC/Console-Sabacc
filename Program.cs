@@ -5,6 +5,9 @@ class Program
 
     static void Main(string[] args)
     {
+        // Set the console title
+        Console.Title = "Console Sabacc - v1.0";
+
         // Make a star background
         Random random = new Random();
         for (int y = 0; y < Console.WindowHeight; y++)
@@ -22,28 +25,12 @@ class Program
         Console.SetCursorPosition(0, 5);
         Console.ForegroundColor = ConsoleColor.Yellow;
         Console.WriteLine("\n\n\n\n");
-        // CentreText(@"     _______.     ___      .______        ___       ______   ______ ");
-        // CentreText(@"    /       |    /   \     |   _  \      /   \     /      | /      |");
-        // CentreText(@"   |   (----`   /  ^  \    |  |_)  |    /  ^  \   |  ,----'|  ,----'");
-        // CentreText(@"    \   \      /  /_\  \   |   _  <    /  /_\  \  |  |     |  |     ");
-        // CentreText(@".----)   |    /  _____  \  |  |_)  |  /  _____  \ |  `----.|  `----.");
-        // CentreText(@"|_______/    /__/     \__\ |______/  /__/     \__\ \______| \______|");
-        CentreText(@" __     _    _       __   _______     _       __   _          _       ");
-        CentreText(@" \ \   | |  | |_____/ /  / _____ \   | |_____/ /  | |        | |      ");
-        CentreText(@"  \ \  | |  |________/  / /     \ \  |________/   | | _  _   | | _  _ ");
-        CentreText(@"   \ \ | |   _________     =====      _________   |_||_|| |  |_||_|| |");
-        CentreText(@"    \ \| |  | |_____ \  \ \_____/ /  | |_____ \         | |        | |");
-        CentreText(@"==== \_| |  |_|     \_\  \_______/   |_|     \_\        |_|        |_|");
-
-
-
- 
-
-    
-
-
-
-
+        Utils.CentreText(@" __     _    _       __   _______     _       __   _          _       ");
+        Utils.CentreText(@" \ \   | |  | |_____/ /  / _____ \   | |_____/ /  | |        | |      ");
+        Utils.CentreText(@"  \ \  | |  |________/  / /     \ \  |________/   | | _  _   | | _  _ ");
+        Utils.CentreText(@"   \ \ | |   ________      =====      ________    |_||_|| |  |_||_|| |");
+        Utils.CentreText(@"    \ \| |  | |_____ \  \ \_____/ /  | |_____ \         | |        | |");
+        Utils.CentreText(@"==== \_|_|  |_|     \_\  \_______/   |_|     \_\        |_|        |_|");
         Console.ResetColor();
 
         // Start the flashing text animation
@@ -78,19 +65,12 @@ class Program
 
             // Write the text
             Console.SetCursorPosition(Console.CursorLeft, cursorTop);
-            CentreText(text);
+            Utils.CentreText(text);
             Console.ResetColor();
 
             // Change the state of the text, then wait
             showText = !showText;
             Thread.Sleep(500); //? 500ms is 0.5 seconds            
         }
-    }
-
-    // Place text in the centre of the console
-    static void CentreText(string text)
-    {
-        Console.SetCursorPosition((Console.WindowWidth - text.Length) / 2, Console.CursorTop);
-        Console.WriteLine(text);
     }
 }

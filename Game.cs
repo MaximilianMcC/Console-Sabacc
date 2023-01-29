@@ -58,9 +58,6 @@ class Game
 
 
 
-
-
-
 		// Add all of the players
 		Console.WriteLine("How many players? (2 - 8)");
 		int playerCount = int.Parse(Console.ReadLine().Trim());
@@ -168,7 +165,6 @@ class Game
 			Console.WriteLine("Press any key to end your current turn");
 			Console.ReadKey();
 		}
-
 
 
 		// At the end of the round throw the spike dice. If both values match all players get new cards
