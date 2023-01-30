@@ -98,21 +98,8 @@ class Game
 		// Loop through all of the different players
 		foreach (Player player in players)
 		{
-			// Give a title showing the round, and player
 			Console.Clear();
-			Console.WriteLine($"Round {round}/3 -- {player.name}");
-
-
-			// Print the players current cards
-			Console.WriteLine("Your cards: ");
-			foreach (Card card in player.hand.cards)
-			{
-				Console.Write(card.GetDisplayName() + "\t");
-			}
-			
-			// Print the top card in the discard pile
-			Console.WriteLine("\n Top card in the discard pile: " + discardPile.cards.First().GetDisplayName());
-
+			ShowGameState(player);
 
 			// Show all of the availble moves
 			menu.title = "Select a move from below";
@@ -149,16 +136,19 @@ class Game
 			//? There is nothing for the 3rd move, because it is do nothing.
 
 
-			//TODO: Don't repeat all this code
-			// Print the players new current cards
-			Console.WriteLine("Your new cards: ");
-			foreach (Card card in player.hand.cards)
-			{
-				Console.Write(card.GetDisplayName() + "\t");
-			}
+			// Show the player the new game state
+			ShowGameState(player);
 			
-			// Print the top card in the discard pile
-			Console.WriteLine("\n New top card in the discard pile: " + discardPile.cards.First().GetDisplayName());
+
+			// Print the players new current cards
+			// Console.WriteLine("Your new cards: ");
+			// foreach (Card card in player.hand.cards)
+			// {
+			// 	Console.Write(card.GetDisplayName() + "\t");
+			// }
+			
+			// // Print the top card in the discard pile
+			// Console.WriteLine("\n New top card in the discard pile: " + discardPile.cards.First().GetDisplayName());
 
 
 			// Ask them to end turn
@@ -209,6 +199,62 @@ class Game
 	void EndGame()
 	{
 		// Check for who wins
+	}
+
+
+
+
+
+
+
+
+
+
+	// Display the game state for a player
+	void ShowGameState(Player player)
+	{
+		// Get the total score as a string that includes the sign
+		//TODO: Figure out what this conditional formatting is doing
+		string totalScore = player.hand.GetTotal().ToString("+#;-#;0");
+
+		// Used to add characters to the gui thing
+		string space = "";
+
+		Console.WriteLine('┌' + new string('─', Console.WindowWidth - 3) + '┐');
+		Console.WriteLine('│' + new string('░', Console.WindowWidth - 3) + '│');
+		Console.WriteLine('└' + new string('─', Console.WindowWidth - 3) + '┘');
+
+
+		// Display the total score
+		Console.SetCursorPosition(Console.CursorLeft, Console.CursorTop - 1);
+		if (totalScore.Length == 1) space = "  ";
+		else if (totalScore.Length == 2) space = " ";
+		else if (totalScore.Length == 3) space = "";
+		Console.WriteLine("├──────────────────┬");
+		Console.WriteLine($"│ Total score: {totalScore}{space} │");
+		Console.WriteLine("└──────────────────┘");
+
+
+
+		// Display the current round
+		Console.SetCursorPosition((Console.WindowWidth - 15), Console.CursorTop - 3);
+		Console.WriteLine("┬────────────┤");
+		Console.SetCursorPosition((Console.WindowWidth - 15), Console.CursorTop);
+		Console.WriteLine($"│ Round: {round}/3 │");
+		Console.SetCursorPosition((Console.WindowWidth - 15), Console.CursorTop);
+		Console.WriteLine("┴────────────┘");
+
+
+
+		// display the players name
+		Console.SetCursorPosition((Console.WindowWidth - (player.name.Length + (5 + 13))), Console.CursorTop - 3);
+		space = new string('─', (player.name.Length + 2));
+		Console.WriteLine($"┬{space}");
+		Console.SetCursorPosition((Console.WindowWidth - (player.name.Length + (5 + 13))), Console.CursorTop);
+		Console.WriteLine($"│ {player.name} ");
+		Console.SetCursorPosition((Console.WindowWidth - (player.name.Length + (5 + 13))), Console.CursorTop);
+		Console.WriteLine($"└{space}");
+
 	}
 
 }

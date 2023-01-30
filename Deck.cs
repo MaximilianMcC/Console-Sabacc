@@ -18,6 +18,8 @@ public class Card
 
     public void DrawAsciiCard()
     {
+        //TODO: Find a way to remove the "Console.SetCursorPosition((startCursorLeft + cardWidth), Console.CursorTop);" spam
+
         int startCursorTop = Console.CursorTop;
         int startCursorLeft = Console.CursorLeft;
         int cardWidth = 14;
@@ -105,5 +107,18 @@ public class Deck
 
         // Return the card copy
         return cardToPickup;
+    }
+
+    // Get the sum of all of the cards in the deck
+    public int GetTotal()
+    {
+        int total = 0;
+        foreach (Card card in cards)
+        {
+            if (card.cardType == CardType.POSITIVE) total += card.value;
+            else if (card.cardType == CardType.NEGATIVE) total -= card.value;
+        }
+
+        return total;
     }
 }
