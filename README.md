@@ -3,10 +3,10 @@ Sabacc but in the console because im too lazy to make gui thing
 
 
 ## **TODO**
-- [ ] Basic gameplay loop
-- [ ] Playable game with irl people
+- [x] Basic gameplay loop
+- [x] Playable game with irl people
 - [ ] Playable game with AI/CPU
-- [ ] Fancy ASCII art
+- [x] Fancy ASCII art
 
 
 ## *What is Sabacc🤓*
