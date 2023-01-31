@@ -16,20 +16,14 @@ public class Card
         return (char)cardType + value.ToString();
     }
 
-    public void DrawAsciiCard()
+    public void DrawAsciiCard(int cursorLeft, int cursorTop)
     {
-        //TODO: Find a way to remove the "Console.SetCursorPosition((startCursorLeft + cardWidth), Console.CursorTop);" spam
-
-        int startCursorTop = Console.CursorTop;
-        int startCursorLeft = Console.CursorLeft;
-        int cardWidth = 14;
-
         // Draw the very top part of the card
-        Console.SetCursorPosition((startCursorLeft + cardWidth), Console.CursorTop);
+        Console.SetCursorPosition(cursorLeft, cursorTop);
         Console.WriteLine(@"    ______    ");
 
         // Draw the top line that states the card type
-        Console.SetCursorPosition((startCursorLeft + cardWidth), Console.CursorTop);
+        Console.SetCursorPosition(cursorLeft, cursorTop + 1);
         Console.Write(@"   /");
         if (cardType == CardType.POSITIVE) Console.ForegroundColor = ConsoleColor.Green;
         else if (cardType == CardType.NEGATIVE) Console.ForegroundColor = ConsoleColor.Red;
@@ -38,32 +32,38 @@ public class Card
         Console.ResetColor();
         Console.WriteLine(@"\   ");
 
-        // Draw the rest of the top of the card
-        Console.SetCursorPosition((startCursorLeft + cardWidth), Console.CursorTop);
-        Console.WriteLine(@"  /        \  ");
-        Console.SetCursorPosition((startCursorLeft + cardWidth), Console.CursorTop);
-        Console.WriteLine(@" /          \ ");
-        Console.SetCursorPosition((startCursorLeft + cardWidth), Console.CursorTop);
-        Console.WriteLine(@"|            |");
+        // Draw the middle of the card
+        string[] cardMiddle = new string[]
+        {
+            @"  /        \  ",
+            @" /          \ ",
+            @"|            |"
+        };
+        for (int i = 0; i < cardMiddle.Length; i++)
+        {
+            Console.SetCursorPosition(cursorLeft, cursorTop + 1 + (i + 1));
+            Console.WriteLine(cardMiddle[i]);
+        }
 
         // Draw the middle part of the card
-        Console.SetCursorPosition((startCursorLeft + cardWidth), Console.CursorTop);
-        Console.Write(@"|     " + (char)cardType);
-        if (value.ToString().Length == 1) Console.WriteLine(value + "     |");
-        else if (value.ToString().Length == 2) Console.WriteLine(value + "    |");
+        Console.SetCursorPosition(cursorLeft, cursorTop + 5);
+        Console.Write(@"|    " + (char)cardType);
+        if (value.ToString().Length == 1) Console.WriteLine(value + "      |");
+        else if (value.ToString().Length == 2) Console.WriteLine(value + "     |");
 
         // Draw the bottom part of the card
-        Console.SetCursorPosition((startCursorLeft + cardWidth), Console.CursorTop);
-        Console.WriteLine(@"|            |");
-        Console.SetCursorPosition((startCursorLeft + cardWidth), Console.CursorTop);
-        Console.WriteLine(@" \          / ");
-        Console.SetCursorPosition((startCursorLeft + cardWidth), Console.CursorTop);
-        Console.WriteLine(@"  \        /  ");
-        Console.SetCursorPosition((startCursorLeft + cardWidth), Console.CursorTop);
-        Console.WriteLine(@"   \______/   ");
-
-        // Move the cursor over to the end of the card
-        Console.SetCursorPosition((startCursorLeft + cardWidth), startCursorTop);
+        string[] cardBottom = new string[]
+        {
+            @"|            |",
+            @" \          / ",
+            @"  \        /  ",
+            @"   \______/   "
+        };
+        for (int i = 0; i < cardBottom.Length; i++)
+        {
+            Console.SetCursorPosition(cursorLeft, cursorTop + 5 + (i + 1));
+            Console.WriteLine(cardBottom[i]);
+        }
     }
 }
 
