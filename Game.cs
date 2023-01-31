@@ -98,7 +98,6 @@ class Game
 		// Loop through all of the different players
 		foreach (Player player in players)
 		{
-			Console.Clear();
 			ShowGameState(player);
 
 			// Show all of the availble moves
@@ -138,18 +137,6 @@ class Game
 
 			// Show the player the new game state
 			ShowGameState(player);
-			
-
-			// Print the players new current cards
-			// Console.WriteLine("Your new cards: ");
-			// foreach (Card card in player.hand.cards)
-			// {
-			// 	Console.Write(card.GetDisplayName() + "\t");
-			// }
-			
-			// // Print the top card in the discard pile
-			// Console.WriteLine("\n New top card in the discard pile: " + discardPile.cards.First().GetDisplayName());
-
 
 			// Ask them to end turn
 			Console.WriteLine("Press any key to end your current turn");
@@ -213,6 +200,10 @@ class Game
 	// Display the game state for a player
 	void ShowGameState(Player player)
 	{
+		// Clear the screen to remove all other game stuff
+		Console.Clear();
+
+
 		// Get the total score as a string that includes the sign
 		//TODO: Figure out what this conditional formatting is doing
 		string totalScore = player.hand.GetTotal().ToString("+#;-#;0");
@@ -226,6 +217,7 @@ class Game
 
 
 		// Display the total score
+		//TODO: Change the color of the score depending on what it is
 		Console.SetCursorPosition(Console.CursorLeft, Console.CursorTop - 1);
 		if (totalScore.Length == 1) space = "  ";
 		else if (totalScore.Length == 2) space = " ";
@@ -254,6 +246,37 @@ class Game
 		Console.WriteLine($"│ {player.name} ");
 		Console.SetCursorPosition((Console.WindowWidth - (player.name.Length + (5 + 13))), Console.CursorTop);
 		Console.WriteLine($"└{space}");
+
+
+		// Draw the box where all of the cards go
+		//TODO: Draw the discard pile box using set cursor position
+		Console.WriteLine();
+		Console.WriteLine(@"┌─── Your hand ──────────────────────────────────────────────────────────────────────────┐       ┌─── discard pile ───┐");
+		Console.WriteLine(@"│                                                                                        │       │       ______       │");
+		Console.WriteLine(@"│                                                                                        │       │      /      \      │");
+		Console.WriteLine(@"│                                                                                        │       │     /        \     │");
+		Console.WriteLine(@"│                                                                                        │       │    /          \    │");
+		Console.WriteLine(@"│                                                                                        │       │   |            |   │");
+		Console.WriteLine(@"│                                                                                        │       │   |            |   │");
+		Console.WriteLine(@"│                                                                                        │       │   |            |   │");
+		Console.WriteLine(@"│                                                                                        │       │    \          /    │");
+		Console.WriteLine(@"│                                                                                        │       │     \        /     │");
+		Console.WriteLine(@"│                                                                                        │       │      \______/      │");
+		Console.WriteLine(@"│                                                                                        │       │                    │");
+		Console.WriteLine(@"└────────────────────────────────────────────────────────────────────────────────────────┘       └────────────────────┘");
+
+		
+		// Draw all of the cards in the players hand
+		int initialCardPosition = 4;
+		int cardPositionMultiplier = 17;
+		for (int i = 0; i < player.hand.cards.Count; i++)
+		{
+			//? 7 starting from 0
+			Card card = player.hand.cards.ElementAt(i);
+			card.DrawAsciiCard((initialCardPosition + (i * cardPositionMultiplier)), 7);
+		}
+		Console.SetCursorPosition(0, 20);
+
 
 	}
 
