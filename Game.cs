@@ -98,6 +98,7 @@ class Game
 		// Loop through all of the different players
 		foreach (Player player in players)
 		{
+			// Show the player the current game state
 			ShowGameState(player);
 
 			// Show all of the availble moves
@@ -185,7 +186,13 @@ class Game
 	// End of the game
 	void EndGame()
 	{
-		// Check for who wins
+		// Get the player with the closest score to 0
+		//TODO: Use the correct sabacc scoring system.
+		Player winner = players.MinBy(player => Math.Abs(player.hand.GetTotal()));
+
+		Console.Clear();
+		Console.WriteLine("winner: " + winner.name);
+		Console.ReadKey();
 	}
 
 
@@ -252,19 +259,18 @@ class Game
 		//TODO: Draw the discard pile box using set cursor position
 		Console.WriteLine();
 		Console.WriteLine(@"┌─── Your hand ──────────────────────────────────────────────────────────────────────────┐       ┌─── discard pile ───┐");
-		Console.WriteLine(@"│                                                                                        │       │       ______       │");
-		Console.WriteLine(@"│                                                                                        │       │      /      \      │");
-		Console.WriteLine(@"│                                                                                        │       │     /        \     │");
-		Console.WriteLine(@"│                                                                                        │       │    /          \    │");
-		Console.WriteLine(@"│                                                                                        │       │   |            |   │");
-		Console.WriteLine(@"│                                                                                        │       │   |            |   │");
-		Console.WriteLine(@"│                                                                                        │       │   |            |   │");
-		Console.WriteLine(@"│                                                                                        │       │    \          /    │");
-		Console.WriteLine(@"│                                                                                        │       │     \        /     │");
-		Console.WriteLine(@"│                                                                                        │       │      \______/      │");
+		Console.WriteLine(@"│                                                                                        │       │                    │");
+		Console.WriteLine(@"│                                                                                        │       │                    │");
+		Console.WriteLine(@"│                                                                                        │       │                    │");
+		Console.WriteLine(@"│                                                                                        │       │                    │");
+		Console.WriteLine(@"│                                                                                        │       │                    │");
+		Console.WriteLine(@"│                                                                                        │       │                    │");
+		Console.WriteLine(@"│                                                                                        │       │                    │");
+		Console.WriteLine(@"│                                                                                        │       │                    │");
+		Console.WriteLine(@"│                                                                                        │       │                    │");
+		Console.WriteLine(@"│                                                                                        │       │                    │");
 		Console.WriteLine(@"│                                                                                        │       │                    │");
 		Console.WriteLine(@"└────────────────────────────────────────────────────────────────────────────────────────┘       └────────────────────┘");
-
 		
 		// Draw all of the cards in the players hand
 		int initialCardPosition = 4;
@@ -275,9 +281,13 @@ class Game
 			Card card = player.hand.cards.ElementAt(i);
 			card.DrawAsciiCard((initialCardPosition + (i * cardPositionMultiplier)), 7);
 		}
+
+		// Draw the top card in the discard pile
+		Card discard = discardPile.cards.First();
+		discard.DrawAsciiCard(101, 7);
+
+		// Return the cursor to the bottom of everything
 		Console.SetCursorPosition(0, 20);
-
-
 	}
 
 }
